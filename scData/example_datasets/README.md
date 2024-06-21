@@ -1,0 +1,7 @@
+# The example datasets and lmdb datasets are as followed:
+> * pbmc_train.pickle and pbmc_test.pickle: the split of pbmc10k data, they can be download in https://example_url.
+> * pbmc_lmdb: the exmple folder for pbmc lmdb databse, it can be download in https://example_url. It contains all, train and test three splits. You can generate it with pbmc_train.pickle and pbmc_test.pickle by process_downstream.py
+> * MS_train.pickle and MS_test.pickle: the split of pbmc10k data, they can be download in https://example_url.
+> * MS_lmdb: the exmple folder for MS lmdb database, it can be download in https://example_url. It contains all, train and test three splits. You can generate it with MS_train.pickle and MS_test.pickle by process_downstream.py
+> * Norman_pretrain_edge30: the lmdb database of Norman dataset, it can be download in https://example_url.
+> * cellclus_PCortex: the lmdb database of PCoretex dataset, it can be download in https://example_url.
