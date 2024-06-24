@@ -8,6 +8,8 @@ This is the open source code repository for the paper ["Cell-GraphCompass: Model
 ## Installation
 
 ```shell
+git clone https://github.com/epang-ucas/Cell-Graph-Compass.git
+cd Cell-Graph-Compass
 conda create -n CGC python=3.9.16 R
 conda activate CGC
 pip install torch==1.13.0
