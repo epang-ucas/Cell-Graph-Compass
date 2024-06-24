@@ -21,7 +21,7 @@ class CellClusterPretrain(UnicoreTask):
     def add_args(parser):
         """Add task-specific arguments to the parser."""
         parser.add_argument("data_path", default=None)
-        parser.add_argument("vocab_path", default="/train14/superbrain/zlhu12/lmdb_2000w_total_new")
+        parser.add_argument("vocab_path", default=None)
         parser.add_argument("--seq_max_len", type=int, default=1201)
         parser.add_argument("--edge_corr_thr", type=int, default=5)
         parser.add_argument("--use_graph", action="store_true", default=False)
