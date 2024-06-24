@@ -46,7 +46,7 @@ As an example, for cell clustering on the PCortex dataset, follow these steps:
 
 First, preprocess the original dataset as described in `scData/README.md` and `scData/example_datasets/README.md`.
 We also provide a processed example database at `./scData/example_datasets/cellclus_PCortex`.
-Then, tart the training and testing script:
+Then, start the training and testing script:
    ```shell
    bash ./exps/cellClus.sh
    ```
