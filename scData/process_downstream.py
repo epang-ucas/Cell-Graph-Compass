@@ -1,5 +1,5 @@
 import pickle
-import os
+import os,sys
 import lmdb
 import pandas as pd
 import numpy as np
@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from data_util import data_util
 from data_util import scPipeline
 from scgpt.tokenizer import GeneVocab
-
+from filter import save_ms
 
 class Preprocess:
 
@@ -381,105 +381,107 @@ class Preprocess:
 
 if __name__=="__main__":
 
-   
-    ###  PBMC 
-    # adata_train_dir = "./train.pickle"
-    # adata_test_dir = "./test.pickle"
-    # celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='celltype')
-    # pbmc_all=Preprocess(
-    #     adata_path=adata,
-    #     train_save_dir="./pbmc_lmdb/all",
-    #     test_save_dir="",
-    #     n_hvg=1200,
-    # )
-    # pbmc_all.process_file(key_celltype='celltype')
+    if sys.argv[1]=="PBMC":
+        ##  PBMC 
+        adata_train_dir = "./train.pickle"
+        adata_test_dir = "./test.pickle"
+        celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='celltype')
+        pbmc_all=Preprocess(
+            adata_path=adata,
+            train_save_dir="./pbmc_lmdb/all",
+            test_save_dir="",
+            n_hvg=1200,
+        )
+        pbmc_all.process_file(key_celltype='celltype')
 
-    # celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='celltype')
-    # pbmc_all=Preprocess(
-    #     adata_path=adata,
-    #     train_save_dir="./pbmc_lmdb/train",
-    #     test_save_dir="./pbmc_lmdb/test",
-    #     n_hvg=1200,
-    # )
-    # pbmc_all.process_file_into_train_test(key_celltype='celltype')
-
-
-    ## MS
-    adata_train_dir = "./ms_train.pickle"
-    adata_test_dir = "./ms_test.pickle"
-    celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='cell_type')
-    ms_train=Preprocess(
-        adata_path=adata[adata.obs["my_split"]=="train"],
-        train_save_dir="/train14/superbrain/zlhu12/data/Download/downstream/MS/latest_3_dim/train",
-        test_save_dir="",
-        n_hvg=3000,
-        data_is_raw=False,
-    )
-    ms_train.process_file()
-
-    celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='cell_type')
-    ms_valid=Preprocess(
-        adata_path=adata[adata.obs["my_split"]=="valid"],
-        train_save_dir="/train14/superbrain/zlhu12/data/Download/downstream/MS/latest_3_dim/valid",
-        test_save_dir="",
-        n_hvg=3000,
-        data_is_raw=False,
-    )
-    ms_valid.process_file()
+        celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='celltype')
+        pbmc_all=Preprocess(
+            adata_path=adata,
+            train_save_dir="./pbmc_lmdb/train",
+            test_save_dir="./pbmc_lmdb/test",
+            n_hvg=1200,
+        )
+        pbmc_all.process_file_into_train_test(key_celltype='celltype')
 
 
-    ### pert: for pert dataset the gene list for cells are the same, just keep one graph for them.
-    # from gears import PertData
-    # data_name = "norman"
-    # split = "simulation"
-    # pert_data_path = "./norman/pretrain/"
-    # pert_data = PertData(pert_data_path)
-    # # pert_data.load(data_name = data_name) # 91205 × 5045 89357 × 5045\
-    # pert_data.load(data_path=pert_data_path)
-    # pert_data.prepare_split(split=split, seed=1,train_gene_set_size=0.8,
-    #                     combo_seen2_train_frac=0.8)
-    # cell_graphs = pert_data.get_dataloader(batch_size=16)
-    # genes = pert_data.adata.var["gene_name"].tolist()
-    # genes_up = np.array([gene.upper() for gene in genes])
-    # node_map = pert_data.node_map
-    # print(f"genes: {genes_up}")
-    # print(pert_data.adata)
+    if sys.argv[1]=="MS":
+        if os.path.exists("./ms_train.pickle")==False:
+            save_ms()
+        adata_train_dir = "./ms_train.pickle"
+        adata_test_dir = "./ms_test.pickle"
+        celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='cell_type')
+        ms_train=Preprocess(
+            adata_path=adata[adata.obs["my_split"]=="train"],
+            train_save_dir="./MS/train",
+            test_save_dir="",
+            n_hvg=3000,
+            data_is_raw=False,
+        )
+        ms_train.process_file()
+
+        celltype_set,adata = data_util.getCelltype(adata_train_dir,adata_test_dir,key_celltype='cell_type')
+        ms_valid=Preprocess(
+            adata_path=adata[adata.obs["my_split"]=="valid"],
+            train_save_dir="./MS/valid",
+            test_save_dir="",
+            n_hvg=3000,
+            data_is_raw=False,
+        )
+        ms_valid.process_file()
+
+    if sys.argv[1]=="pert":
+        ### pert: for pert dataset the gene list for cells are the same, just keep one graph for them.
+        from gears import PertData
+        data_name = "norman"
+        split = "simulation"
+        pert_data_path = "./norman/pretrain/"
+        pert_data = PertData(pert_data_path)
+        # pert_data.load(data_name = data_name) # 91205 × 5045 89357 × 5045\
+        pert_data.load(data_path=pert_data_path)
+        pert_data.prepare_split(split=split, seed=1,train_gene_set_size=0.8,
+                            combo_seen2_train_frac=0.8)
+        cell_graphs = pert_data.get_dataloader(batch_size=16)
+        genes = pert_data.adata.var["gene_name"].tolist()
+        genes_up = np.array([gene.upper() for gene in genes])
+        node_map = pert_data.node_map
+        print(f"genes: {genes_up}")
+        print(pert_data.adata)
 
 
-    # # get corr matrix
-    # corr_path = "./corr.pt"
-    # if os.path.exists(corr_path):
-    #     print("Already exists corr!")
-    #     corr = torch.load(corr_path)
-    # else:
-    #     print("calculate corr...")
-    #     ctrl_adata = pert_data.adata[pert_data.adata.obs['condition'] == 'ctrl']
-    #     X_torch = torch.from_numpy(ctrl_adata.X.todense())
-    #     corr = torch.corrcoef(X_torch.T)
-    #     row, col = np.diag_indices_from(corr)
-    #     corr[row,col] = 0 
-    #     corr = torch.where(torch.isnan(corr), torch.full_like(corr, 0), corr)
-    #     print("Corr matrix:")
-    #     print(corr)
-    #     print(corr.shape)
-    #     torch.save(corr,corr_path)
+        # # get corr matrix
+        corr_path = "./corr.pt"
+        if os.path.exists(corr_path):
+            print("Already exists corr!")
+            corr = torch.load(corr_path)
+        else:
+            print("calculate corr...")
+            ctrl_adata = pert_data.adata[pert_data.adata.obs['condition'] == 'ctrl']
+            X_torch = torch.from_numpy(ctrl_adata.X.todense())
+            corr = torch.corrcoef(X_torch.T)
+            row, col = np.diag_indices_from(corr)
+            corr[row,col] = 0 
+            corr = torch.where(torch.isnan(corr), torch.full_like(corr, 0), corr)
+            print("Corr matrix:")
+            print(corr)
+            print(corr.shape)
+            torch.save(corr,corr_path)
 
 
-    # edge_path = "./edge.pickle"
-    # if os.path.exists(edge_path):
-    #     print("Already exists edge")
-    #     with open(edge_path,"rb") as f:
-    #         index_edge,type_attr,corr_attr,chromo_attr=pickle.load(f)
-    # else:
-    #     print("Generating edge ...")
-    #     pert_train=Preprocess(
-    #         adata_path="",
-    #         train_save_dir="",
-    #         test_save_dir="",
-    #         n_hvg=3550,
-    #         data_is_raw=False,
-    #     )
-    #     index_edge,type_attr,corr_attr,chromo_attr=pert_train.generate_edge_adata(corr,genes_up,cls_append=False)
-    #     with open(edge_path,"wb") as f:
-    #         pickle.dump((index_edge,type_attr,corr_attr,chromo_attr),f)
+        edge_path = "./edge.pickle"
+        if os.path.exists(edge_path):
+            print("Already exists edge")
+            with open(edge_path,"rb") as f:
+                index_edge,type_attr,corr_attr,chromo_attr=pickle.load(f)
+        else:
+            print("Generating edge ...")
+            pert_train=Preprocess(
+                adata_path="",
+                train_save_dir="",
+                test_save_dir="",
+                n_hvg=3550,
+                data_is_raw=False,
+            )
+            index_edge,type_attr,corr_attr,chromo_attr=pert_train.generate_edge_adata(corr,genes_up,cls_append=False)
+            with open(edge_path,"wb") as f:
+                pickle.dump((index_edge,type_attr,corr_attr,chromo_attr),f)
     pass
