@@ -3,7 +3,7 @@
 This is the open source code repository for the paper "Cell-GraphCompass: Modeling Single Cells with Graph Structure Foundation Model." Cell-GraphCompass (CGCompass) is a graph-structured single-cell transcriptome foundational model. It uses six biological features to construct cell graphs and is pre-trained on fifty million human single-cell sequencing data.
 
 ## Overview
-![Overview](./scData/fig/overview.png)
+![Overview](./scData/1.png)
 
 ## Installation
 
