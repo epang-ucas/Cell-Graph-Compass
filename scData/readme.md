@@ -1,9 +1,10 @@
 This is where the open-source data for the paper "Cell-GraphCompass: Modeling Single Cells with Graph Structure Foundation Model" is located.
 Cell-GraphCompass (CGCompass) is a single-cell foundational model pre-trained on fifty million human single-cell sequencing data based on graph structure. Here we open-sources the pre-trained results of CGCompass as well as the datasets for downstream tasks. To verify the effectiveness of the CGCompass methodology, we additionally pre-trained a model based solely on a transformer on the same pre-training dataset.
 
-Paper link: [https://www.biorxiv.org/content/10.1101/2024.06.04.597354v1](https://www.biorxiv.org/content/10.1101/2024.06.04.597354v1)
-Github link: [https://github.com/epang-ucas/Cell-Graph-Compass](https://github.com/epang-ucas/Cell-Graph-Compass)
-Google Drive link:[https://drive.google.com/drive/folders/1-0tE2jdodlUio2Wds61FKRE1E2Cd7MXU?usp=sharing]
+- Paper link: [https://www.biorxiv.org/content/10.1101/2024.06.04.597354v1](https://www.biorxiv.org/content/10.1101/2024.06.04.597354v1)
+- Github link: [https://github.com/epang-ucas/Cell-Graph-Compass](https://github.com/epang-ucas/Cell-Graph-Compass)
+- Google Drive link:[https://drive.google.com/drive/folders/1-0tE2jdodlUio2Wds61FKRE1E2Cd7MXU?usp=sharing]
+  
 Please note that only a portion of the data for this folder is stored on GitHub. The remaining data is open-sourced and available at this Google Drive link.
 
 Directory structure:
