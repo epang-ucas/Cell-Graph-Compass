@@ -46,7 +46,7 @@ The scripts include the hyperparameters used in the experimental results present
 
 As an example, for cell clustering on the PCortex dataset, follow these steps:
 
-First, preprocess the original dataset as described in `scData/README.md` and `scData/example_datasets/README.md`.
+First, preprocess the original dataset as described in `scData/readme.md`.
 We also provide a processed example database at `./scData/example_datasets/cellclus_PCortex`.
 Then, start the training and testing script:
    ```shell
