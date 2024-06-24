@@ -370,7 +370,7 @@ if __name__ == "__main__":
     logger.info(f"{model}:")
     # args.best_model=None
     if args.best_model:
-        pretrained_dict = torch.load(args.best_model)['model']
+        pretrained_dict = torch.load(args.best_model)
         model.load_state_dict(pretrained_dict)
         logger.info(f"[*]Loading all model params from {args.best_model}")
     else:

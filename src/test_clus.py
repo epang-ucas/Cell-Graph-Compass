@@ -413,7 +413,7 @@ def eval(
     return results['avg_batch'],results['avg_bio'],val_acc_macro,val_acc_micro,cm_norm,cm_abs
 
 def testModel(args,best_model,model,dataset,draw=True):
-    pretrained_dict = torch.load(os.path.join(best_model))['model']
+    pretrained_dict = torch.load(os.path.join(best_model))
     check_num = best_model.split("/")[-1].split('.')[0].split('_')[-1]
     try:
         model.load_state_dict(pretrained_dict)

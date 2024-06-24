@@ -165,7 +165,7 @@ def evaluate(
     Evaluate the model on the evaluation data.
     """
     check_num = model_path.split("/")[-1].split('.')[0].split('_')[-1]
-    pretrained_dict = torch.load(model_path)['model']
+    pretrained_dict = torch.load(model_path)
     try:
         model.load_state_dict(pretrained_dict)
         print(f"[*]Loading all model params from {model_path}")

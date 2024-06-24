@@ -76,7 +76,7 @@ class ScModel(BaseUnicoreModel):
         self.do_ecs = args.do_ecs
         self.do_cce = args.do_cce
         self.n_bins = args.n_bins
-        vocab_path = os.path.join(args.vocab_path, "vocab.json")
+        vocab_path = args.vocab_path
         if os.path.exists(vocab_path):
             vocab = GeneVocab.from_file(vocab_path)
             ntoken = len(vocab)
@@ -140,7 +140,7 @@ class ScModel(BaseUnicoreModel):
         )
         self.dtype = torch.float
         if args.pretrain is not None:
-            pretrained_dict = torch.load(args.pretrain)['model']
+            pretrained_dict = torch.load(args.pretrain)
             model_dict = self.state_dict()
             load_dict = dict()
             for key in model_dict.keys():

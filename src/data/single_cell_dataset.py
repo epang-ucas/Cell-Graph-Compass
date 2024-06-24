@@ -40,7 +40,7 @@ class ScDataset(UnicoreDataset):
         super().__init__()
         self.epoch = 0
         self.lmdb_path = os.path.join(data_path,split)
-        self.vocab_path = os.path.join(vocab_path, "vocab.json")
+        self.vocab_path = vocab_path
         self.seq_max_len = seq_max_len
         self.pad_token = pad_token
         self.cls_token = cls_token

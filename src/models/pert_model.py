@@ -155,7 +155,7 @@ class PertModel(BaseUnicoreModel):
                              "edge_encoder", "gnn_encoder","gene_summary_encoder"]
             module_new = ["pert_encoder", "bn", "decoder"]
 
-            pretrained_dict = torch.load(args.pretrain)['model']
+            pretrained_dict = torch.load(args.pretrain)
             model_dict = self.state_dict()
             # import pdb;pdb.set_trace()
 
